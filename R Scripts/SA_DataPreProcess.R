@@ -44,4 +44,24 @@ inspect(corpus[1:5])
 corpus = tm_map(corpus, removeWords, c("ReplacedTextvirginamerica","ReplacedTextusairways","ReplacedTextunited","ReplacedTextsouthwestair","ReplacedTextjetblue","ReplacedTextamericanair"))
 inspect(corpus[1:5])
 
+# We want to keep #
+corpus <- tm_map(corpus, function(x) gsub('#', 'KeepHashPunct', x))
+inspect(corpus[1:5])
+
+# Remove remaining punctuation
+corpus <- tm_map(corpus, removePunctuation)
+inspect(corpus[1:5])
+
+# Revert replacements
+corpus <- tm_map(corpus, function(x) gsub('KeepHashPunct', '#', x))
+inspect(corpus[1:5])
+
+# Remove all http links
+corpus <- tm_map(corpus, function(x) gsub('http[[:alnum:]]*', '', x))
+inspect(corpus[1:5])
+
+# Stem the document
+corpus = tm_map(corpus, stemDocument)
+cleanset = tm_map(corpus, PlainTextDocument)
+inspect(cleanset[1:5])
 
