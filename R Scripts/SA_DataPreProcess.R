@@ -12,16 +12,16 @@ airlineTweets <- read.csv(file.choose(), header = T)
 
 #Display Info of the dataframe
 str(airlineTweets)
-
-#Show observations in columns
-head(airlineTweets)
-
-##Create a DataFrame of Negative Sentiments
 negativeSubset = subset(airlineTweets, airline_sentiment == "negative")
 str(negativeSubset)
 
 ##----------DATA CLEANING------------------------##
 
+
+#Show observations in columns
+head(airlineTweets)
+
+##Create a DataFrame of Negative Sentiments
 ##BUILD CORPUS AND CLEAN THE TEXT
 corpus = Corpus(VectorSource(negativeSubset$text))
 inspect(corpus[1:5])
