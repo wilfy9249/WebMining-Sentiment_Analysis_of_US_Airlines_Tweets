@@ -47,16 +47,46 @@ negativeTweetsByDateByAirline <- negativeTweets %>% group_by(airline,date) %>% d
 negativeTweetsByDateByAirlinePlot = ggplot() + geom_line(data=negativeTweetsByDateByAirline, aes(x=date, y=count, group =airline , color=airline)) 
 negativeTweetsByDateByAirlinePlot
 
+##----REASONS FOR NEGATIVE TWEETS---##
+negativeReasonTweets <- negativeTweets %>% group_by(negativereason) %>% dplyr::summarise(count=n()) %>% arrange(desc(count))
+negativeReasonTweets
 
+##---BY AIRLINES---##
+negativeReasonTweetsByAirline <- negativeTweets %>% group_by(airline,negativereason) %>% dplyr::summarise(count=n())%>% arrange(airline,desc(count))
+negativeReasonTweetsByAirline
 
+topReasonPerAirline <- ddply(negativeReasonTweetsByAirline, "airline", function(z) head(z,1))
+topReasonPerAirline
 
+##---PLOT THE GRAPH---## 
+airlineTweets <- airlineTweets[!airlineTweets$negativereason=="",]
+graph <- as.data.frame(prop.table(table(airlineTweets[,c("negativereason","airline")]))*100)
+names(graph)
+colnames(graph) <- c("Negative_Reason","Airline","Proportion_of_Negative_Reason")
 
+##--American Airlines--##
+graph_American <- subset(graph,Airline=="American")
+ggplot(graph_American,aes(x=Airline,y=Proportion_of_Negative_Reason,fill=Negative_Reason))+geom_bar(stat="identity",position="dodge")
 
+##--Delta Airlines--##
+graph_Delta <- subset(graph,Airline=="Delta")
+ggplot(graph_Delta,aes(x=Airline,y=Proportion_of_Negative_Reason,fill=Negative_Reason))+geom_bar(stat="identity",position="dodge")
 
+##--SouthWest Airlines--##
+graph_SouthWest <- subset(graph,Airline=="Southwest")
+ggplot(graph_SouthWest,aes(x=Airline,y=Proportion_of_Negative_Reason,fill=Negative_Reason))+geom_bar(stat="identity",position="dodge")
 
+##--United Airlines--##
+graph_United <- subset(graph,Airline=="United")
+ggplot(graph_United,aes(x=Airline,y=Proportion_of_Negative_Reason,fill=Negative_Reason))+geom_bar(stat="identity",position="dodge")
 
+##--US Airways--##
+graph_US <- subset(graph,Airline=="US Airways")
+ggplot(graph_US,aes(x=Airline,y=Proportion_of_Negative_Reason,fill=Negative_Reason))+geom_bar(stat="identity",position="dodge")
 
-
+##--Virgin America--##
+graph_Virgin <- subset(graph,Airline=="Virgin America")
+ggplot(graph_Virgin,aes(x=Airline,y=Proportion_of_Negative_Reason,fill=Negative_Reason))+geom_bar(stat="identity",position="dodge")
 
 
 
