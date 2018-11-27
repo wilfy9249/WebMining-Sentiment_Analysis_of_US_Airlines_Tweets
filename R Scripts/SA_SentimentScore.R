@@ -26,3 +26,17 @@ barplot(colSums(s),
         col = rainbow(10),
         ylab = 'Count',
         main = 'Sentiment Scores for US Airlines Tweets')
+
+
+##To-do##
+Senti <- get_nrc_sentiment(tweets)
+tweets <- cbind(tweets, Senti)
+sentimentSum <- data.frame(colSums(tweets[,c(16:25)]))
+names(sentimentSum) <- "count"
+sentimentSum <- cbind("sentiment" = rownames(sentimentSum), sentimentSum)
+rownames(sentimentSum) <- NULL
+ggplot(data = sentimentSum, aes(x = sentiment, y = count)) + geom_bar(aes(fill = sentiment), stat = "identity") + theme(legend.position = "none") +
+  xlab("Sentiment") + ylab("Total Count") + ggtitle("Sentiment Score for Airline")
+
+adsSummary <- summary( tweets )
+adsSummary 

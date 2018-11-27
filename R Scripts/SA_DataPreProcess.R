@@ -63,5 +63,5 @@ inspect(corpus[1:5])
 # Stem the document
 corpus = tm_map(corpus, stemDocument)
 cleanset = tm_map(corpus, PlainTextDocument)
-inspect(cleanset[1:5])
+inspect(cleanset[1:5]) 
 
