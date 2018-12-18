@@ -11,7 +11,7 @@ names(airlineTweets)
 
 ##----1. FIND THE DISTRIBUTION OF NEGATIVE/POSITIVE -----------------##
 airlineTweets$date <-  as.Date(airlineTweets$tweet_created)
-
+  
 ##---GROUP BY AIRLINE SENTIMENT------------##
 posNegDist = airlineTweets %>% group_by(airline_sentiment) %>% dplyr::summarise(count = n())
 posNegDist
